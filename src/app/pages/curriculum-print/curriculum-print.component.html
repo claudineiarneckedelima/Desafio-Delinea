@@ -1,0 +1,49 @@
+<div class="container col-sm-10">
+  <br>
+  <img src="http://www.delinea.com.br/wp-content/uploads/2016/07/logo_delinea.png" alt="Site corporativo da empresa Delinea">
+  <br><br>
+  <table class="table table-striped">
+    <thead>
+    </thead>
+    <tbody>
+      <div *ngFor="let c of curriculumPrint;">
+        <tr>
+          <th scope="row" class="left">Username:</th>
+          <td class="col">{{c.username}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="left">Nome:</th>
+          <td class="col">{{c.firstname}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="left">Sobrenome:</th>
+          <td class="col">{{c.lastname}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="left">Email:</th>
+          <td class="col">{{c.email}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="left">Telefone:</th>
+          <td class="col">{{c.phone}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="left">CPF:</th>
+          <td class="col">{{c.cpf}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="left">RG:</th>
+          <td class="col">{{c.rg}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="left">Aniversário:</th>
+          <td class="col">{{c.birth}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="left">Lattes:</th>
+          <td class="col">{{c.lattes}}</td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+</div>

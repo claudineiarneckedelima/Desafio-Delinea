@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { GLOBAL } from '../../../../global';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    //private router: Router
   ) { }
 
   ngOnInit() {
@@ -45,14 +44,13 @@ export class LoginComponent implements OnInit {
 
     localStorage.setItem('userToken', JSON.stringify({
         id: 1,
-        username: "claudinei",
-        password: "123456",
+        username: this.loginForm.get('username').value,
+        password: this.loginForm.get('password').value,
         firstName: "Claudinei",
         lastName: "de Lima"
     }));
 
-    this.router.navigate(['/']);
-
+    window.location.href='/';
 
 
     this.http.post(GLOBAL.url+'login',{
@@ -61,9 +59,9 @@ export class LoginComponent implements OnInit {
     }).subscribe((res)=>{
       if(res["status"] == 201){
         localStorage.setItem('userToken', res["access_token"]);
-        this.router.navigate(['/']);
+        window.location.href='/';
       }
-      this.router.navigate(['/login']);
+      window.location.href='login';
 
     },
     error => {

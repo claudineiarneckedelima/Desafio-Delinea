@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'desafio2';
+  userToken: any;
+
+  constructor() {
+    this.userToken = localStorage.getItem('userToken');
+  }
 }

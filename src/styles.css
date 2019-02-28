@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+.backgroundColor{
+  background:#e9ecef !important
+}
+
+.navbar{
+  background:#348e94 !important
+}

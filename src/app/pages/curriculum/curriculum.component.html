@@ -1,0 +1,106 @@
+<div class="">
+  <form [formGroup]="curriculumForm" (ngSubmit)="onSubmit()">
+    <div class="container col-sm-10">
+      <div class="alert alert-light" role="alert">
+        <br>
+        <img src="http://www.delinea.com.br/wp-content/uploads/2016/07/logo_delinea.png" alt="Site corporativo da empresa Delinea">
+        <br><br>
+
+        <fieldset class="border p-2">
+            <legend  class="w-auto">DADOS DE ACESSO</legend>
+            <div class="row mb-3 col-sm-6">
+              Nome de usuário<br>
+              <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+              <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Nome de usuário é obrigatório</div>
+              </div>
+            </div>
+
+            <div class="row mb-3 col-sm-6">
+              Confirmação de nome de usuário<br>
+              <input type="text" formControlName="confirm_username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirm_username.errors }" />
+              <div *ngIf="submitted && f.confirm_username.errors" class="invalid-feedback">
+                  <div *ngIf="f.confirm_username.errors.required">Confirme o nome de usuário</div>
+              </div>
+            </div>
+        </fieldset>
+        <br>
+
+        <fieldset class="border p-2">
+            <legend  class="w-auto">DADOS PESSOAIS</legend>
+            <div class="row mb-3 col-sm-10">
+              Nome<br>
+              <input type="text" formControlName="firstname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
+              <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstname.errors.required">Nome é obrigatório</div>
+              </div>
+            </div>
+
+            <div class="row mb-3 col-sm-10">
+              Sobrenome<br>
+              <input type="text" formControlName="lastname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+              <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastname.errors.required">Sobrenome é obrigatório</div>
+              </div>
+            </div>
+
+            <div class="row mb-3 col-sm-6">
+              Data de Nascimento<br>
+              <input type="date" formControlName="birth" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.birth.errors }" />
+              <div *ngIf="submitted && f.birth.errors" class="invalid-feedback">
+                  <div *ngIf="f.birth.errors.required">A data deaniversário é obrigatória é obrigatória</div>
+              </div>
+            </div>
+
+            <div class="row mb-3 col-sm-8">
+              RG<br>
+              <input type="number" formControlName="rg" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rg.errors }" />
+              <div *ngIf="submitted && f.rg.errors" class="invalid-feedback">
+                  <div *ngIf="f.rg.errors.required">O RG é obrigatório</div>
+              </div>
+            </div>
+
+            <div class="row mb-3 col-sm-8">
+              CPF<br>
+              <input type="number" formControlName="cpf" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }" />
+              <div *ngIf="submitted && f.cpf.errors" class="invalid-feedback">
+                  <div *ngIf="f.cpf.errors.required">O CPF é obrigatório</div>
+              </div>
+            </div>
+
+            <div class="row mb-3 col-sm-6">
+              Email<br>
+              <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">O Email é obrigatório</div>
+              </div>
+            </div>
+
+            <div class="row mb-3 col-sm-6">
+              Telefone<br>
+              <input type="tel" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+              <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                  <div *ngIf="f.phone.errors.required">O Telefone é obrigatório</div>
+              </div>
+            </div>
+
+            <div class="row mb-3 col-sm-10">
+              Lattes<br>
+              <input type="text" formControlName="lattes" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lattes.errors }" />
+              <div *ngIf="submitted && f.lattes.errors" class="invalid-feedback">
+                  <div *ngIf="f.lattes.errors.required">O currículo Lattes é obrigatório</div>
+              </div>
+            </div>
+
+        </fieldset>
+      <br>
+      <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary">Enviar</button>
+          <img *ngIf="loading" class="pl-2" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      </div>
+      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+      </div>
+    </div>
+  </form>
+</div>

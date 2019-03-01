@@ -85,13 +85,13 @@ export class CurriculumComponent implements OnInit {
 
     localStorage.setItem('curriculum', JSON.stringify(curriculum));
 
-    console.log(JSON.stringify(curriculum))
-
     this.http.post(GLOBAL.url+'candidate/', curriculum).subscribe((res)=>{
         alert('Currículo cadastrado com sucesso!');
         this.router.navigate(['/curriculum-print']);
     },
     error => {
+        //this.error = error;
+        this.loading = false;
         alert('Erro ao enviar currículo');
     });
   }

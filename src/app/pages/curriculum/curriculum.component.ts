@@ -26,6 +26,7 @@ export class CurriculumComponent implements OnInit {
     this.curriculumForm = this.formBuilder.group({
         username: ['', Validators.required],
         confirm_username: ['', Validators.required],
+        password: ['', Validators.required],
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
         email: ['', Validators.required],
@@ -54,42 +55,45 @@ export class CurriculumComponent implements OnInit {
 
     this.loading = true;
 
+    let lattes = this.curriculumForm.get('lattes').value.replace('http://','').replace('https://','');
+
     let curriculum = {
-      //"password": "pbkdf2_sha256$20000$owRR1UJPwfoC$Q0OEA5wN/80Xht+sSJU+2e6jRgSiqQMoSC1anQp8lCc=",
-      //"last_login": null,
-      //"is_superuser": false,
+      "password": this.curriculumForm.get('password').value,
+      "last_login": null,
+      "is_superuser": false,
       "full_name": this.curriculumForm.get('firstname').value+' '+this.curriculumForm.get('lastname').value,
       "first_name": this.curriculumForm.get('firstname').value,
       "last_name": this.curriculumForm.get('lastname').value,
       "email": this.curriculumForm.get('email').value,
-      //"is_staff": false,
-      //"is_active": true,
-      //"date_joined": "2017-04-13T19:03:16.975640Z",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": new Date(),
       "username": this.curriculumForm.get('username').value,
-      //"confirm_username": false,
-      //"is_social": false,
+      "confirm_username": true,
+      "is_social": false,
       "phone": this.curriculumForm.get('phone').value,
-      //"publisher": false,
-      //"name": null,
+      "publisher": true,
+      "name": this.curriculumForm.get('firstname').value,
       "cpf": this.curriculumForm.get('cpf').value,
       "rg": this.curriculumForm.get('rg').value,
       "birth_date": this.curriculumForm.get('birth').value,
-      "lattes": this.curriculumForm.get('lattes').value
-    };
+      "lattes": 'http://'+lattes,
+      "about": "",
+      "groups": [],
+      "user_permissions": []
+    }
 
     localStorage.setItem('curriculum', JSON.stringify(curriculum));
 
-    /*this.http.post(GLOBAL.url+'candidate', curriculum).subscribe((res)=>{
-        if(res["status"] == 201){
-          alert('Currículo cadastrado com sucesso!');
-          this.router.navigate(['/curriculum-print']);
-        }
-        else
-          alert('Currículo não cadastrado!');
+    console.log(JSON.stringify(curriculum))
+
+    this.http.post(GLOBAL.url+'candidate/', curriculum).subscribe((res)=>{
+        alert('Currículo cadastrado com sucesso!');
+        this.router.navigate(['/curriculum-print']);
     },
     error => {
         alert('Erro ao enviar currículo');
-    });*/
+    });
   }
 
 }

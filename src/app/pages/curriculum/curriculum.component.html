@@ -23,6 +23,14 @@
                   <div *ngIf="f.confirm_username.errors.required">Confirme o nome de usuário</div>
               </div>
             </div>
+
+            <div class="row mb-3 col-sm-6">
+              Senha<br>
+              <input type="text" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">A Senha é obrigatória</div>
+              </div>
+            </div>
         </fieldset>
         <br>
 
@@ -86,7 +94,7 @@
 
             <div class="row mb-3 col-sm-10">
               Lattes<br>
-              <input type="text" formControlName="lattes" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lattes.errors }" />
+              <input type="text" formControlName="lattes" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lattes.errors }" placeholder="http://lattes.cnpq.br/TAGG5" />
               <div *ngIf="submitted && f.lattes.errors" class="invalid-feedback">
                   <div *ngIf="f.lattes.errors.required">O currículo Lattes é obrigatório</div>
               </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ParamMap, Router, ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GLOBAL } from '../../../../global';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -10,6 +10,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
   styleUrls: ['./candidate-detail.component.css']
 })
 export class CandidateDetailComponent implements OnInit {
+  private password: any;
+  private date_joined: any;
   candidateForm: FormGroup;
   loading = false;
   submitted = false;
@@ -17,6 +19,8 @@ export class CandidateDetailComponent implements OnInit {
   error = '';
   private getId: any;
   private action: any;
+
+  private httpOptions: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +30,20 @@ export class CandidateDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    localStorage.setItem("userToken", "gVdxbctnzdQHpVjHld7DK86AGmr31i");
+
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': "Bearer "+localStorage.getItem('userToken'),
+        'Content-Type': 'application/json'
+      })
+    };
+
     this.candidateForm = this.formBuilder.group({
+        password: ['', ''],
+        confirm_password: ['', ''],
+        username: ['', Validators.required],
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
         email: ['', Validators.required],
@@ -41,6 +58,9 @@ export class CandidateDetailComponent implements OnInit {
     this.getId = this.activatedRoute.snapshot.url[1].path.replace(/[^\d]/g, "");
 
     this.http.get(GLOBAL.url+'candidate/'+this.getId).subscribe((res)=>{
+        this.password     = res["password"];
+        this.date_joined  = res["date_joined"];
+        this.candidateForm.controls['username'].setValue(res["username"]);
         this.candidateForm.controls['firstname'].setValue(res["first_name"]);
         this.candidateForm.controls['lastname'].setValue(res["last_name"]);
         this.candidateForm.controls['email'].setValue(res["email"]);
@@ -70,6 +90,11 @@ export class CandidateDetailComponent implements OnInit {
         return;
     }
 
+    if(this.candidateForm.get('password').value !== this.candidateForm.get('confirm_password').value){
+      alert('As senhas não conferem!');
+      return
+    }
+
     this.loading = true;
 
     if(this.action == 'EDITAR')
@@ -79,7 +104,11 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   updateCandidate(){
-    this.http.put(GLOBAL.url+'candidate/'+this.getId, {
+
+    const newPassword = (this.candidateForm.get('confirm_password').value) ? this.candidateForm.get('password').value : this.password;
+
+    console.log(JSON.stringify({
+        password: newPassword,
         first_name: this.candidateForm.get('firstname').value,
         last_name: this.candidateForm.get('lastname').value,
         full_name: this.candidateForm.get('firstname').value+' '+this.candidateForm.get('lastname').value,
@@ -88,15 +117,48 @@ export class CandidateDetailComponent implements OnInit {
         email: this.candidateForm.get('email').value,
         phone: this.candidateForm.get('phone').value,
         lattes: this.candidateForm.get('lattes').value,
-        birth_date: new Date(this.candidateForm.get('birth').value).toLocaleDateString("en-US")
-    }).subscribe((res)=>{
+        birth_date: this.candidateForm.get('birth').value,
+        last_login: null,
+        is_superuser: false,
+        is_staff: false,
+        is_active: true,
+        date_joined: this.date_joined,
+        username: this.candidateForm.get('username').value,
+        confirm_username: true,
+        is_social: false,
+        publisher: true,
+        name: this.candidateForm.get('firstname').value,
+        about: "",
+        groups: [],
+        user_permissions: []}))
 
-      if(res["status"] == 200){
+    this.http.put(GLOBAL.url+'candidate/'+this.getId, {
+        "password": newPassword,
+        "last_login": null,
+        "is_superuser": false,
+        "full_name": this.candidateForm.get('firstname').value+' '+this.candidateForm.get('lastname').value,
+        "first_name": this.candidateForm.get('firstname').value,
+        "last_name": this.candidateForm.get('lastname').value,
+        "email": this.candidateForm.get('email').value,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": this.date_joined,
+        "username": this.candidateForm.get('username').value,
+        "confirm_username": true,
+        "is_social": false,
+        "phone": "1",
+        "publisher": true,
+        "name": this.candidateForm.get('firstname').value,
+        "cpf": this.candidateForm.get('cpf').value,
+        "rg": this.candidateForm.get('rg').value,
+        "birth_date": this.candidateForm.get('birth').value,
+        "lattes": this.candidateForm.get('lattes').value,
+        "about": "",
+        "groups": [],
+        "user_permissions": []
+    }, this.httpOptions).subscribe((res)=>{
         alert('Candidato atualizado com sucesso!');
         this.router.navigate(['/candidate']);
-      }
-      else
-        alert('Candidato não atualizado');
 
     },
     error => {
@@ -105,14 +167,9 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   deleteCandidate(){
-    this.http.delete(GLOBAL.url+'candidate/'+this.getId+'/delete').subscribe((res)=>{//<{access_token:  string}>
-
-        if(res["status"] == 200){
-          alert('Candidato deletado com sucesso!');
-          this.router.navigate(['/candidate']);
-        }
-        else
-          alert('Candidato não deletado!');
+    this.http.delete(GLOBAL.url+'candidate/'+this.getId+'/delete', this.httpOptions).subscribe((res)=>{//<{access_token:  string}>
+        alert('Candidato deletado com sucesso!');
+        this.router.navigate(['/candidate']);
 
     },
     error => {

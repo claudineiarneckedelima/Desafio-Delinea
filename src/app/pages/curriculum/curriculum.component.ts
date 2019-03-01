@@ -25,7 +25,7 @@ export class CurriculumComponent implements OnInit {
   ngOnInit() {
     this.curriculumForm = this.formBuilder.group({
         username: ['', Validators.required],
-        confirm_username: ['', Validators.required],
+        confirm_password: ['', Validators.required],
         password: ['', Validators.required],
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
@@ -48,8 +48,8 @@ export class CurriculumComponent implements OnInit {
         return;
     }
 
-    if(this.curriculumForm.get('username').value !== this.curriculumForm.get('confirm_username').value){
-      alert('Nomes de usuário não conferem');
+    if(this.curriculumForm.get('password').value !== this.curriculumForm.get('confirm_password').value){
+      alert('As senhas não conferem!');
       return
     }
 

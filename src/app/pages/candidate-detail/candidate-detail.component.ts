@@ -31,7 +31,7 @@ export class CandidateDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    localStorage.setItem("userToken", "gVdxbctnzdQHpVjHld7DK86AGmr31i");
+    //localStorage.setItem("userToken", "gVdxbctnzdQHpVjHld7DK86AGmr31i");
 
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -107,31 +107,6 @@ export class CandidateDetailComponent implements OnInit {
 
     const newPassword = (this.candidateForm.get('confirm_password').value) ? this.candidateForm.get('password').value : this.password;
 
-    console.log(JSON.stringify({
-        password: newPassword,
-        first_name: this.candidateForm.get('firstname').value,
-        last_name: this.candidateForm.get('lastname').value,
-        full_name: this.candidateForm.get('firstname').value+' '+this.candidateForm.get('lastname').value,
-        cpf: this.candidateForm.get('cpf').value,
-        rg: this.candidateForm.get('rg').value,
-        email: this.candidateForm.get('email').value,
-        phone: this.candidateForm.get('phone').value,
-        lattes: this.candidateForm.get('lattes').value,
-        birth_date: this.candidateForm.get('birth').value,
-        last_login: null,
-        is_superuser: false,
-        is_staff: false,
-        is_active: true,
-        date_joined: this.date_joined,
-        username: this.candidateForm.get('username').value,
-        confirm_username: true,
-        is_social: false,
-        publisher: true,
-        name: this.candidateForm.get('firstname').value,
-        about: "",
-        groups: [],
-        user_permissions: []}))
-
     this.http.put(GLOBAL.url+'candidate/'+this.getId, {
         "password": newPassword,
         "last_login": null,
@@ -162,6 +137,8 @@ export class CandidateDetailComponent implements OnInit {
 
     },
     error => {
+        //this.error = error;
+        this.loading = false;
         alert('Erro ao atualizar candidato');
     });
   }
@@ -173,6 +150,8 @@ export class CandidateDetailComponent implements OnInit {
 
     },
     error => {
+        //this.error = error;
+        this.loading = false;
         alert('Erro ao deletar candidato');
     });
   }

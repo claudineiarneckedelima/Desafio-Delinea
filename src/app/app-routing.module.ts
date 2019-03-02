@@ -14,7 +14,7 @@ import { CurriculumPrintComponent } from './pages/curriculum-print/curriculum-pr
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'curriculum', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'candidate', component: CandidateListComponent, canActivate:[AuthGuard] },
   { path: 'candidate/:id', component: CandidateDetailComponent, canActivate:[AuthGuard] },

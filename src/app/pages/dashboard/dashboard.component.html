@@ -1,5 +1,32 @@
-<div class="backgroundColor">
-<p>
-  dashboard works!
-</p>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <a href="candidate">
+        <div class="alert alert-success" role="alert" style="text-align: center">
+          <h5 class="alert-heading">Total de candidatos</h5>
+          <hr>
+          <p class="mb-0">{{getCandidatesTotal()}}</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm">
+      <a href="candidate?is_active=false">
+        <div class="alert alert-success" role="alert" style="text-align: center">
+          <h5 class="alert-heading">Candidatos Novos</h5>
+          <hr>
+          <p class="mb-0">{{getCandidatesNoActive()}}</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm">
+      <a href="candidate?is_active=true">
+        <div class="alert alert-success" role="alert" style="text-align: center">
+          <h5 class="alert-heading">Candidatos Visualizados</h5>
+          <hr>
+          <p class="mb-0">{{getCandidatesActive()}}</p>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>

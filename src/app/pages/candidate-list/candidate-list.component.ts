@@ -10,6 +10,7 @@ import { GLOBAL } from '../../../../global';
 })
 export class CandidateListComponent implements OnInit {
   //private nameApp: any = GLOBAL.nameApp;
+  public is_active: any = '';
   public candidates: any = [];
 
   constructor(
@@ -19,14 +20,13 @@ export class CandidateListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let is_active;
     this.activatedRoute.queryParams.subscribe((params) => {
-      is_active = params['is_active']
+      this.is_active = params['is_active']
     });
 
-    this.http.get(GLOBAL.url+'candidate?is_active='+is_active).subscribe((res)=>{
+    this.http.get(GLOBAL.url+'candidate?is_active='+this.is_active).subscribe((res)=>{
         for(let i in res){
-          if(String(res[i].is_active) === is_active){
+          if(String(res[i].is_active) === this.is_active){
             this.candidates.push({
               id: res[i].id,
               full_name: res[i].full_name,

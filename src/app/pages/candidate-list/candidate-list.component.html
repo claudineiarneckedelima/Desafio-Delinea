@@ -5,7 +5,6 @@
 </div>
 <br>
 <div class="list-group">
-  <div *ngIf="candidates =='' "><h1 align="center"><br>Nada Encontrado</h1></div>
   <div *ngFor="let c of candidates;">
   <a href="candidate/{{c.id}}" class="list-group-item list-group-item-action flex-column align-items-start" *ngIf="c.full_name && c.date_joined">
     <div class="d-flex w-100 justify-content-between">
@@ -16,4 +15,5 @@
     <small></small>
   </a>
   </div>
+  <div *ngIf="candidates =='' && is_active "><h1 align="center"><br>Nada Encontrado</h1></div>
 </div>

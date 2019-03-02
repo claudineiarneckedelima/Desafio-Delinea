@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
     this.http.post(GLOBAL.url+'o/token/', dataVars, this.httpOptions).subscribe((res)=>{
       localStorage.setItem('userToken', res["access_token"]);
-      window.location.href='/';
+      window.location.href='/dashboard';
     },
     error => {
       //this.error = error;

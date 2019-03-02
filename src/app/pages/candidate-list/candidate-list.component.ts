@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GLOBAL } from '../../../../global';
 
@@ -8,21 +9,30 @@ import { GLOBAL } from '../../../../global';
   styleUrls: ['./candidate-list.component.css']
 })
 export class CandidateListComponent implements OnInit {
-  private nameApp: any = GLOBAL.nameApp;
+  //private nameApp: any = GLOBAL.nameApp;
   public candidates: any = [];
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router,
+    private activatedRoute:ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.http.get(GLOBAL.url+'candidate').subscribe((res)=>{
+    let is_active;
+    this.activatedRoute.queryParams.subscribe((params) => {
+      is_active = params['is_active']
+    });
+
+    this.http.get(GLOBAL.url+'candidate?is_active='+is_active).subscribe((res)=>{
         for(let i in res){
-          this.candidates.push({
-            id: res[i].id,
-            full_name: res[i].full_name,
-            date_joined: new Date(res[i].date_joined).toLocaleDateString("pt-BR")
-          });
+          if(String(res[i].is_active) === is_active){
+            this.candidates.push({
+              id: res[i].id,
+              full_name: res[i].full_name,
+              date_joined: new Date(res[i].date_joined).toLocaleDateString("pt-BR")
+            });
+          }
         }
 
     },

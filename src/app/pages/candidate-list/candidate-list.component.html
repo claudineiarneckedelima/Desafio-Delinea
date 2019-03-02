@@ -1,12 +1,13 @@
 <br>
 <div class="btn-group" role="group" aria-label="Basic example">
-  <a href="candidate?status=v"><button type="button" class="btn" style="background:#348e94; color: #fff;">Visualizados</button></a>
-  <a href="candidate?status=n"><button type="button" class="btn" style="background:#348e94; color: #fff;">Novos</button></a>
+  <a href="candidate?is_active=false"><button type="button" class="btn" style="background:#348e94; color: #fff;">Novo</button></a>
+  <a href="candidate?is_active=true"><button type="button" class="btn" style="background:#348e94; color: #fff;">Visualizados</button></a>
 </div>
 <br>
 <div class="list-group">
+  <div *ngIf="candidates =='' "><h1 align="center"><br>Nada Encontrado</h1></div>
   <div *ngFor="let c of candidates;">
-  <a href="candidate/{{c.id}}" class="list-group-item list-group-item-action flex-column align-items-start"><!-- *ngIf="c.full_name && c.date_joined"-->
+  <a href="candidate/{{c.id}}" class="list-group-item list-group-item-action flex-column align-items-start" *ngIf="c.full_name && c.date_joined">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{c.full_name}}</h5>
       <small>{{c.date_joined}}</small>

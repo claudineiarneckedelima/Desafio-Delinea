@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'desafio2';
   userToken: any;
+  isShown: boolean = false;
 
   constructor() {
     this.userToken = localStorage.getItem('userToken');

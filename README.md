@@ -1,6 +1,10 @@
-# Desafio2
+# Desafio
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
+
+## Install
+
+Run `npm i`
 
 ## Development server
 
